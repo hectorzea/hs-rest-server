@@ -11,7 +11,7 @@ app.get('/users', (request, response) => {
     //el from especifica desde donde  se van a ver los usuarios
     //en el find, se puede mandar un segundo parametro, que es la proyeccion, este va a excluir todos los campos excepto el que metamos como segundo
     //parametro
-    User.find({state: false}).limit(iLimit).skip(iFrom).exec((err, users) => {
+    User.find({}).limit(iLimit).skip(iFrom).exec((err, users) => {
         if (err) return response.status(400).json({ok: false, err});
         User.countDocuments({state: false}, (err, count) => {
             response.json({
