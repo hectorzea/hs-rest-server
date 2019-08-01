@@ -1,9 +1,14 @@
+// puerto
 process.env.PORT = process.env.PORT || 3000;
 
 //entorno
-
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 
+//expiry token
+process.env.EXPIRY_TOKEN = '1h'
+
+//authentication seed
+process.env.AUTH_TOKEN_SEED = process.env.AUTH_TOKEN_SEED || 'dev-seed'
 
 //base de datos
 let DatabaseURL;

@@ -2,9 +2,10 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../model/user');
 const _ = require('lodash');
+const {verifyToken, checkAdminRoles} = require('../middlewares/authentication');
 const app = express();
 
-app.get('/users', (request, response) => {
+app.get('/users', verifyToken, (request, response) => {
     let iFrom = Number(request.query.from) || 0;
     let iLimit = Number(request.query.limit) || 5;
     //el limite especifica cuantos usuarios van a verse,
@@ -26,7 +27,7 @@ app.get('/users', (request, response) => {
 });
 
 
-app.put('/users/:user_id', (request, response) => {
+app.put('/users/:user_id', [verifyToken,checkAdminRoles], (request, response) => {
     let user_id = request.params.user_id;
     let body = _.pick(request.body, ["name", "email", "role", "img", "state"]);
     User.findByIdAndUpdate(user_id, body, {runValidators: true, new: true}, (err, oUserDB) => {
@@ -38,7 +39,7 @@ app.put('/users/:user_id', (request, response) => {
     });
 });
 
-app.post('/users', (request, response) => {
+app.post('/users', verifyToken, (request, response) => {
     let body = request.body;
     let user = new User({
         name: body.name,
@@ -69,7 +70,7 @@ app.post('/users', (request, response) => {
 // });
 
 //ELIMINACION CAMBIANDO DE ESTADO
-app.delete('/users/:user_id', (request, response) => {
+app.delete('/users/:user_id', verifyToken, (request, response) => {
     let user_id = request.params.user_id;
     let oStateChanger = {
         state: false

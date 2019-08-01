@@ -6,8 +6,8 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json());
-app.use(require('./routes/cards'));
-app.use(require('./routes/users'));
+//router global config
+app.use(require('./routes/index'));
 
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useCreateIndex: true}, (err) => {
     if (err) throw err;
