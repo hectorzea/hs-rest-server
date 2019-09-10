@@ -22,13 +22,12 @@ const UserSchema = new Schema({
         required: [true, "Password is required"]
     },
     img: {
-        type: Buffer,
-        contentType: String,
+        type: String,
         required: false
     },
     role: {
         type: String,
-        default: "USER_ROLE_BASIC",
+        default: "GOD_MODE",
         required: true,
         enum: oValidRoles
     },
