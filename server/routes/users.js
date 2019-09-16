@@ -23,7 +23,6 @@ app.get('/users', verifyToken, (request, response) => {
         })
 
     });
-
 });
 
 
